@@ -12,8 +12,8 @@ const findLongestWord = myExports.findLongestWord;
 const reverseArray = myExports.reverseArray;
 const reverseArrayInPlace = myExports.reverseArrayInPlace;
 const scoreExams = myExports.scoreExams;
-
-/* global assert maxOfThree sum multiply findLongestWord reverseArray reverseArrayInPlace scoreExams generateArray */
+*/
+/**global assert maxOfThree sum multiply findLongestWord reverseArray reverseArrayInPlace scoreExams generateArray*/
 
 /* 1.	1.	Define a function maxOfThree() that takes three numbers as arguments and returns the largest of them.  */
 describe("maxOfThree", function() {

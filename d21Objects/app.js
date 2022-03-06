@@ -1,19 +1,18 @@
 "use strict";
 /* You need the module.exports when testing in node.  Comment it out when you send your file to the browser */
-/*module.exports = { scrambleshowTitles, findTitles, showAuthors, findAuthors, showIDs, findIDs, addBook };
-//add all of your function names here that you need for the node mocha tests
+//  module.exports = {findTitles,addBook,findAuthors,findIDs }; //add all of your function names here that you need for the node mocha tests
 
 
-/**
- * Event handler to display library titles sorted alphabetically
- * @returns {undefined}
- */
 let library = [
     { title: "The Road Ahead", author: "Bill Gates", libraryID: 1254 },
     { title: "Walter Isaacson", author: "Steve Jobs", libraryID: 4264 },
     { title: "Mockingjay: The Final Book of The Hunger Games", author: "Suzanne Collins", libraryID: 3245 }
 ];
 
+/**
+ * Event handler to display library titles sorted alphabetically
+ * @returns {undefined}
+ */
 function showTitles() {
 
     /* put all titles into an array, then sort, then join with newline and insert in textarea innerHTML */
@@ -26,17 +25,35 @@ function showTitles() {
 
     let textArea = document.getElementById("displayArea");
     textArea.innerHTML = titleString;
-
 }
 
-function scramble() {
+/**
+ * Event handler to display library authors sorted alphabetically
+ * @returns {undefined}
+ */
+function showAuthor() {
 
-    const all_titles = findTitles();
-    all_titles.sort((a, b) => a.length - b.length);
-    const allString = all_titles.join("\n");
+    const authors = findAuthors();
 
-    let textArea = document.getElementById("displayArea");
-    textArea.innerHTML = allString;
+    authors.sort();
+
+    const authorString = authors.join("\n");
+    let textArea = document.getElementById("authorDisplayArea");
+    textArea.innerHTML = authorString;
+
+}
+/**
+ * Event handler to display library IDs sorted alphabetically
+ * @returns {undefined}
+ */
+function showLibraryID() {
+
+    const bookId = findIDs();
+    bookId.sort();
+
+    const bookIdString = bookId.join("\n");
+    let textArea = document.getElementById("idDisplayArea");
+    textArea.innerHTML = bookIdString;
 
 }
 
@@ -46,65 +63,99 @@ function scramble() {
  */
 function findTitles() {
     let titles = [];
-    for (let each_title of library) {
-        titles.push(each_title.title)
+    // titles = ["Mockingjay: The Final Book of The Hunger Games", "The Road Ahead", "Walter Isaacson"];  //FIX THIS!!
+    // implement this and other functions
+    for (let books of library) {
+        titles.push(books.title);
     }
+    titles.sort();
     return titles;
 }
 
-function showAuthors() {
-
-    const authors = findAuthors();
-    authors.sort();
-    const authorString = authors.join("\n");
-
-    let textArea = document.getElementById("displayArea");
-    textArea.innerHTML = authorString;
-}
-
+/**
+ * @returns {Array} holding all the authors as element
+ */
 function findAuthors() {
     let authors = [];
-    for (let each_author of library) {
-        authors.push(each_author.author)
+    for (let book of library) {
+        authors.push(book.author);
     }
+    authors.sort();
     return authors;
 }
 
-function showIDs() {
 
-    const ids = findIDs();
-    ids.sort();
-    const idsString = ids.join("\n");
-
-    let textArea = document.getElementById("displayArea");
-    textArea.innerHTML = idsString;
-}
-
+/**
+ * @returns {Array} array holding all the ids of the books
+ */
 function findIDs() {
-    let ids = [];
-    for (let each_id of library) {
-        ids.push(each_id.libraryID)
+    let bookIDs = [];
+    for (let book of library) {
+        bookIDs.push(book.libraryID);
     }
-    return ids;
+    bookIDs.sort();
+    return bookIDs;
 }
 
 /**
  * @returns {undefined} no return
  * Event handler for Add book button.  Creates and adds book to the library
  */
-function addBook() {
-    const title = document.getElementById("title"); //retrieves the book title from the title textbox
-    const author = document.getElementById("author");
-    const libraryID = document.getElementById("libraryID");
-    const another_object = {};
-    another_object.title = title;
-    another_object.author = author;
-    another_object.libraryID = libraryID;
-    library.push(another_object);
+function addBook(title, author, libraryID) {
+    const newBook = {};
 
-    return another_object;
+    newBook.title = title;
+    newBook.author = author;
+    newBook.libraryID = libraryID;
+
+    library.push(newBook);
+
+    return newBook;
+}
+
+/**
+ * 
+ */
+function scramble() {
+    const title = findTitles();
+    let allWords = [];
+    for (let oneTitle of title) {
+        const titleArray = oneTitle.split(" ");
+        for (let words of titleArray) {
+            allWords.push(words);
+        }
+    }
+
+    const asc = allWords.sort((aaa, bbb) => aaa.length - bbb.length);
+    let str = asc[0];
+    for (let i = 1; i < asc.length; i++) {
+        if (asc[i - 1].length === asc[i].length) {
+            str += " " + asc[i];
+        } else {
+            str += "\n" + asc[i];
+        }
+    }
+    let textArea = document.getElementById("displayScrumble");
+    textArea.innerHTML = str;
+}
 
 
-
+/**
+ * 
+ */
+function addBookToLibrary() {
+    const newBook = {};
+    const title = document.getElementById("title").value; //retrieves the book title from the title textbox
     //finish the implementation -- get the author, create a book object, and add to the library array
+    const author = document.getElementById("author").value;
+    const libraryID = document.getElementById("libraryID").value;
+
+    newBook.title = title;
+    newBook.author = author;
+    newBook.libraryID = libraryID;
+
+    library.push(newBook);
+
+    document.getElementById("displayArea").innerHTML = newBook.title + "\n" + newBook.author + "\n" + newBook.libraryID;
+
 }
