@@ -64,7 +64,7 @@ bank.getBalance = function(id) {
  */
 bank.bankBalance = function(amount) {
     let sum = 0;
-    for (let i = 0; i < transactionsDB.customerTransactions.length; i++) {
+    for (let i = 0; i < bank.transactionsDB.customerTransactions.length; i++) {
         for (let j = 0; j < customerTransactions[i].length; j++)
             sum += customerTransactions[j];
     }
