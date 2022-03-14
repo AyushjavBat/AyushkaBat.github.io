@@ -17,7 +17,9 @@ function doubleNums(arr) {
 
 function doubleAges(arr) {
 
-    return arr.map(num => num.age * 2)
+    let resu = arr.map(item => ({ name: item.name, age: item.age * 2 }, { name: item.name, age: item.age * 2 }, { name: item.name, age: item.age * 2 }, { name: item.name, age: item.age * 2 }))
+    return resu
+
 }
 
 
@@ -50,8 +52,9 @@ function includesEvenNum(arr) {
 }
 
 function includesEvenAge(arr) {
-    return arr.includes(num => num.age % 2 === 0)
+    let even = arr.map(user => user.age % 2 === 0 ? true : false);
 
+    return even.includes(true);
 }
 
 function sumOfNumbers(arr) {
@@ -66,9 +69,10 @@ function maxOfNumbers(arr) {
     return arr.reduce((max, current) => Math.max(max, current), -100)
 }
 
-function maxOfAges(arr) {
-    return arr.reduce((max, age) => Math.max(max, age), -100)
+function findMaxAge(arr) {
+    return arr.reduce((max, element) => Math.max(max, element.age), -Infinity)
 }
+
 
 function averageOfEvenAges(arr) {
     return arr.filter(num => num.age % 2 === 0).reduce((total, current) => total + current.age, 0) / 2;
